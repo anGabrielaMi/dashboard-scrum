@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Dashboard Scrum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo: #ECEFEA;
+    --superficie: #FAFBF8;
+    --tinta: #1C2B2A;
+    --suave: #52625F;
+    --linea: #D3DAD3;
+    --acento: #1F6F5C;
+    --acento-tinta: #FFFFFF;
+    --ok: #17604F;      --ok-bg: #DCEDE6;
+    --pend: #7A5200;    --pend-bg: #F6E6BF;
+    --alerta: #9C2C3E;  --alerta-bg: #F6DDE1;
+    --m-contento: #F4E5A1;
+    --m-triste: #D5E3F1;
+    --m-enojado: #F4D2CA;
+    --f-titulo: "Bricolage Grotesque", system-ui, "Segoe UI", sans-serif;
+    --f-texto: "Instrument Sans", system-ui, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #101918;
+      --superficie: #172423;
+      --tinta: #E4EEEA;
+      --suave: #9BAEA9;
+      --linea: #2A3B38;
+      --acento: #5EC4A6;
+      --acento-tinta: #0C1B17;
+      --ok: #7FD6BB;      --ok-bg: #1B3A32;
+      --pend: #EBC167;    --pend-bg: #3A2E12;
+      --alerta: #F2A0AD;  --alerta-bg: #3E2027;
+      --m-contento: #3F3A1A;
+      --m-triste: #1E3145;
+      --m-enojado: #45252A;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  body { margin: 0; background: var(--fondo); color: var(--tinta); font: 400 1rem/1.55 var(--f-texto); }
+  h1, h2, h3, h4 { font-family: var(--f-titulo); line-height: 1.15; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .875em; background: var(--fondo); padding: .05em .35em; border-radius: 3px; }
+  :focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; border-radius: 4px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .saltar { position: absolute; left: -999px; top: 0; background: var(--acento); color: var(--acento-tinta); padding: .5rem 1rem; z-index: 10; }
+  .saltar:focus { left: 0; }
+
+  /* Estructura */
+  .app { display: grid; grid-template-columns: 272px minmax(0, 1fr); min-height: 100vh; }
+  .riel { position: sticky; top: 0; align-self: start; height: 100vh; overflow: auto; background: var(--superficie); border-right: 1px solid var(--linea); padding: 1.75rem 1rem 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .marca h1 { font-size: 1.375rem; font-weight: 800; letter-spacing: -.01em; }
+  .marca p { color: var(--suave); font-size: .875rem; margin-top: .25rem; }
+  .sel-sprint { display: block; font-size: .875rem; font-weight: 600; color: var(--suave); }
+  .sel-sprint select { display: block; width: 100%; margin-top: .3rem; padding: .55rem .7rem; border: 1px solid var(--linea); border-radius: 6px; background: var(--fondo); color: var(--tinta); font: inherit; font-weight: 500; }
+  .nav { display: flex; flex-direction: column; gap: 2px; }
+  .nav-item { display: block; padding: .65rem .8rem; border-left: 3px solid transparent; border-radius: 0 6px 6px 0; color: inherit; text-decoration: none; }
+  .nav-item:hover { background: var(--fondo); }
+  .nav-item[aria-current="page"] { background: var(--fondo); border-left-color: var(--acento); }
+  .nav-nombre { display: block; font-weight: 600; }
+  .nav-metrica { display: block; font-size: .875rem; color: var(--suave); }
+
+  .principal { padding: 2.25rem clamp(1.25rem, 4vw, 3rem) 4rem; max-width: 1040px; width: 100%; }
+  .aviso { background: var(--pend-bg); color: var(--pend); padding: .7rem 1rem; border-radius: 6px; margin-bottom: 1.75rem; font-weight: 500; }
+  .aviso code { background: transparent; padding: 0; font-weight: 600; }
+
+  /* Cabecera del sprint */
+  .sprint-nombre { font-size: clamp(2rem, 4.5vw, 2.75rem); font-weight: 800; letter-spacing: -.02em; }
+  .objetivo { margin-top: .6rem; max-width: 62ch; font-size: 1.125rem; }
+  .objetivo span { color: var(--suave); font-weight: 600; }
+  .meta { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; margin-top: .75rem; color: var(--suave); }
+  .dias { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
+  .dia { width: 40px; padding: .3rem 0 .35rem; display: flex; flex-direction: column; align-items: center; border: 1.5px solid var(--linea); border-radius: 6px; background: transparent; color: var(--suave); font: inherit; line-height: 1.2; }
+  .dia .letra { font-size: .6875rem; }
+  .dia .num { font-weight: 600; font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .dia.registrada { background: var(--acento); border-color: var(--acento); color: var(--acento-tinta); cursor: pointer; }
+  .dia.registrada:hover { filter: brightness(1.1); }
+  .dia.futuro { opacity: .55; border-style: dashed; }
+  .dia.sin-registro { border-color: var(--alerta); color: var(--alerta); }
+  .dia.hoy { box-shadow: 0 0 0 2px var(--fondo), 0 0 0 4px var(--tinta); }
+  .dia:disabled { cursor: default; }
+  .leyenda { font-size: .8125rem; color: var(--suave); margin-top: .5rem; }
+  .enlaces { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
+  .enlace { display: inline-flex; padding: .5rem .9rem; border: 1.5px solid var(--tinta); border-radius: 6px; color: var(--tinta); text-decoration: none; font-weight: 600; font-size: .9375rem; }
+  .enlace:hover { background: var(--tinta); color: var(--fondo); }
+
+  /* Vista de sección */
+  .vista { margin-top: 2.5rem; border-top: 1px solid var(--linea); padding-top: 2rem; }
+  .sec-cab { margin-bottom: 1.5rem; }
+  .sec-cab h3 { font-size: 1.5rem; font-weight: 600; }
+  .sec-cab p { color: var(--suave); margin-top: .25rem; max-width: 60ch; }
+  .vacio { padding: 1.5rem; border: 1.5px dashed var(--linea); border-radius: 8px; color: var(--suave); }
+
+  .etiqueta { display: inline-block; padding: .15rem .6rem; border-radius: 999px; font-size: .8125rem; font-weight: 600; white-space: nowrap; }
+  .etiqueta.ok { background: var(--ok-bg); color: var(--ok); }
+  .etiqueta.pend { background: var(--pend-bg); color: var(--pend); }
+  .etiqueta.alerta { background: var(--alerta-bg); color: var(--alerta); }
+  .etiqueta.neutro { background: var(--fondo); color: var(--suave); }
+
+  /* Daily */
+  .daily { background: var(--superficie); border: 1px solid var(--linea); border-radius: 8px; margin-bottom: .75rem; }
+  .daily summary { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .75rem; padding: .9rem 1.1rem; cursor: pointer; list-style: none; }
+  .daily summary::-webkit-details-marker { display: none; }
+  .daily summary::before { content: ""; flex: none; width: .5rem; height: .5rem; border-right: 2px solid var(--suave); border-bottom: 2px solid var(--suave); transform: rotate(-45deg); transition: transform .15s; }
+  .daily[open] summary::before { transform: rotate(45deg); }
+  .daily-fecha { font-family: var(--f-titulo); font-weight: 600; font-size: 1.125rem; }
+  .tabla { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+  .tabla th { text-align: left; font-size: .8125rem; font-weight: 600; color: var(--suave); padding: .5rem 1.1rem; border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea); }
+  .tabla td { padding: .7rem 1.1rem; vertical-align: top; border-bottom: 1px solid var(--linea); }
+  .tabla tr:last-child td { border-bottom: 0; }
+  .ninguno { color: var(--suave); }
+  .con-imp { color: var(--alerta); font-weight: 600; }
+
+  /* Impediment log */
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+  .chip { padding: .4rem .85rem; border: 1.5px solid var(--linea); border-radius: 999px; background: transparent; color: var(--tinta); font: inherit; font-size: .9rem; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: var(--fondo); }
+  .imp { background: var(--superficie); border: 1px solid var(--linea); border-left: 4px solid var(--linea); border-radius: 8px; padding: 1.1rem 1.25rem; margin-bottom: .75rem; }
+  .imp.abierto { border-left-color: var(--alerta); }
+  .imp.cerrado { border-left-color: var(--ok); }
+  .imp-cab { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; }
+  .imp-id { font-variant-numeric: tabular-nums; color: var(--suave); font-weight: 600; }
+  .imp-cab h4 { font-size: 1.125rem; font-weight: 600; flex: 1 1 14rem; }
+  .imp-datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .9rem 1.5rem; margin: 1rem 0 0; }
+  .par.ancho { grid-column: 1 / -1; }
+  .par dt { font-size: .8125rem; font-weight: 600; color: var(--suave); }
+  .par dd { margin: 0; white-space: pre-line; }
+
+  /* Definition of Done y Sprint review */
+  .resumen-barra { margin-bottom: 1.5rem; }
+  .resumen-barra p { margin-bottom: .4rem; font-weight: 600; }
+  .barra { height: 8px; background: var(--linea); border-radius: 99px; overflow: hidden; }
+  .barra-relleno { height: 100%; background: var(--acento); }
+  .grupo { background: var(--superficie); border: 1px solid var(--linea); border-radius: 8px; margin-bottom: .75rem; padding: 1rem 1.25rem; }
+  .grupo-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: .5rem; }
+  .grupo-cab h4 { font-size: 1.0625rem; font-weight: 600; }
+  .cuenta { font-size: .875rem; color: var(--suave); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .checks { list-style: none; margin: 0; padding: 0; }
+  .checks li { display: flex; gap: .7rem; padding: .5rem 0; border-top: 1px solid var(--linea); }
+  .checks li:first-child { border-top: 0; }
+  .checks .texto { flex: 1; }
+  .checks.rev li { align-items: flex-start; justify-content: space-between; }
+  .ico { flex: none; width: 1.25rem; height: 1.25rem; margin-top: .15rem; }
+  .ico svg { display: block; width: 100%; height: 100%; }
+  .ico .tick { fill: none; stroke: var(--superficie); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .hecho .ico { color: var(--ok); }
+  .pendiente .ico { color: var(--suave); }
+  .bloque { margin-top: 1.75rem; }
+  .bloque h4 { font-size: 1.0625rem; font-weight: 600; margin-bottom: .4rem; }
+  .bloque p { white-space: pre-line; max-width: 70ch; }
+  .bloque ul { margin: 0; padding-left: 1.25rem; max-width: 70ch; }
+  .bloque .sin { color: var(--suave); }
+
+  /* Retrospective */
+  .retro-dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .caja { background: var(--superficie); border: 1px solid var(--linea); border-radius: 8px; padding: 1rem 1.25rem; }
+  .caja h4 { font-size: 1.0625rem; font-weight: 600; margin-bottom: .5rem; }
+  .caja ul { margin: 0; padding-left: 1.15rem; }
+  .caja li { margin: .3rem 0; }
+  .estados-tit { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+  .estados { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .estado-col h4 { font-size: 1.0625rem; font-weight: 600; margin-bottom: .6rem; }
+  .nota { padding: .7rem .85rem; border-radius: 4px; margin-bottom: .6rem; }
+  .nota.contento { background: var(--m-contento); }
+  .nota.triste { background: var(--m-triste); }
+  .nota.enojado { background: var(--m-enojado); }
+  .estado-col .sin { color: var(--suave); font-size: .9375rem; }
+
+  /* Móvil */
+  @media (max-width: 860px) {
+    .app { grid-template-columns: 1fr; }
+    .riel { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--linea); padding: 1rem; gap: 1rem; }
+    .nav { flex-direction: row; overflow-x: auto; gap: .25rem; padding-bottom: .25rem; }
+    .nav-item { flex: none; min-width: 9.5rem; border-left: 0; border-bottom: 3px solid transparent; border-radius: 6px 6px 0 0; }
+    .nav-item[aria-current="page"] { border-bottom-color: var(--acento); }
+    .principal { padding-top: 1.5rem; }
+  }
+  @media (max-width: 700px) {
+    .tabla thead { display: none; }
+    .tabla tr { display: block; padding: .6rem 0; border-top: 1px solid var(--linea); }
+    .tabla td { display: block; border: 0; padding: .25rem 1.1rem; }
+    .tabla td::before { content: attr(data-label); display: block; font-size: .75rem; font-weight: 600; color: var(--suave); }
+  }
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<noscript><p style="padding:1rem">Este dashboard necesita JavaScript para mostrar los datos.</p></noscript>
+
+<div class="app">
+  <aside class="riel">
+    <div class="marca">
+      <h1 id="proyecto">Dashboard Scrum</h1>
+      <p id="curso"></p>
+    </div>
+    <label class="sel-sprint">Sprint
+      <select id="selSprint"></select>
+    </label>
+    <nav id="nav" class="nav" aria-label="Instancias Scrum"></nav>
+  </aside>
+
+  <main id="contenido" class="principal">
+    <div id="aviso" class="aviso" hidden></div>
+    <header id="cabecera"></header>
+    <section id="vista" class="vista"></section>
+  </main>
+</div>
+
+<script src="data.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  const D = window.DASHBOARD;
+  if (!D) {
+    document.body.textContent = 'No se encontró data.js. Revisa que esté en la misma carpeta que index.html.';
+    return;
+  }
+
+  /* ---------- Utilidades ---------- */
+  const $ = (sel) => document.querySelector(sel);
+
+  const h = (tag, attrs, ...hijos) => {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k === 'class') el.className = v;
+      else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? '' : v);
+    }
+    for (const c of hijos.flat()) {
+      if (c == null || c === false) continue;
+      el.append(c.nodeType ? c : document.createTextNode(String(c)));
+    }
+    return el;
+  };
+  const montar = (el, hijos) => el.replaceChildren(...hijos.flat().filter((x) => x != null && x !== false));
+  const code = (t) => h('code', {}, t);
+  const vacio = (...hijos) => h('div', { class: 'vacio' }, hijos);
+
+  const parseFecha = (s) => {
+    if (!s) return null;
+    const [y, m, d] = String(s).split('-').map(Number);
+    return new Date(y, m - 1, d);
+  };
+  const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const fmt = (d, o) => d.toLocaleDateString('es-CL', o);
+  const fmtLargo = (d) => cap(fmt(d, { weekday: 'long', day: 'numeric', month: 'long' }));
+  const fmtCompleto = (d) => fmt(d, { day: 'numeric', month: 'long', year: 'numeric' });
+  const fmtCorto = (s) => {
+    const d = parseFecha(s);
+    return d ? fmt(d, { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
+  };
+  const rango = (a, b) => (a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear())
+    ? `${a.getDate()} al ${fmtCompleto(b)}`
+    : `${fmt(a, { day: 'numeric', month: 'long' })} al ${fmtCompleto(b)}`;
+
+  /* Por defecto se cuentan los 7 días de la semana.
+     Si data.js trae diasPorSemana: 5, se cuentan solo de lunes a viernes
+     (y los fines de semana aparecen únicamente si tienen daily). */
+  const sieteDias = () => D.diasPorSemana !== 5;
+  const diasSprint = (ini, fin, extra) => {
+    const out = [];
+    for (const d = new Date(ini); d <= fin; d.setDate(d.getDate() + 1)) {
+      const finde = d.getDay() === 0 || d.getDay() === 6;
+      if (sieteDias() || !finde || (extra && extra.has(iso(d)))) out.push(new Date(d));
+    }
+    return out;
+  };
+
+  const ICO_OK = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path class="tick" d="M5.5 10.5l3 3 6-6.5"/></svg>';
+  const ICO_NO = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+  const icono = (ok) => { const s = h('span', { class: 'ico' }); s.innerHTML = ok ? ICO_OK : ICO_NO; return s; };
+
+  const barra = (texto, a, t) => h('div', { class: 'resumen-barra' },
+    h('p', {}, texto),
+    h('div', { class: 'barra', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': t, 'aria-valuenow': a, 'aria-label': texto },
+      h('div', { class: 'barra-relleno', style: `width:${t ? Math.round((a / t) * 100) : 0}%` })));
+
+  const bloque = (titulo, contenido) => {
+    const lista = Array.isArray(contenido) ? contenido.filter(Boolean) : null;
+    let cuerpo;
+    if (lista && lista.length) cuerpo = h('ul', {}, lista.map((t) => h('li', {}, t)));
+    else if (!lista && contenido) cuerpo = h('p', {}, contenido);
+    else cuerpo = h('p', { class: 'sin' }, 'Sin registrar.');
+    return h('div', { class: 'bloque' }, h('h4', {}, titulo), cuerpo);
+  };
+
+  /* ---------- Conteos ---------- */
+  const abierto = (i) => !['cerrado', 'resuelto'].includes(String(i.estado || '').trim().toLowerCase());
+  const esAprobado = (c) => String(c.estado || '').trim().toLowerCase() === 'aprobado';
+  const tieneImpedimento = (t) => {
+    const x = String(t || '').trim().toLowerCase().replace(/\.$/, '');
+    return x !== '' && !['ninguno', 'no', 'sin impedimentos', 'no aplica'].includes(x);
+  };
+  const contarDod = () => {
+    const items = (D.definitionOfDone || []).flatMap((g) => g.items || []);
+    return { total: items.length, ok: items.filter((i) => i.cumplido).length };
+  };
+  const contarReview = (s) => {
+    const crit = ((s.review && s.review.historias) || []).flatMap((x) => x.criterios || []);
+    return { total: crit.length, ok: crit.filter(esAprobado).length };
+  };
+  const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
+
+  /* ---------- Secciones ---------- */
+  const SECCIONES = [
+    { id: 'daily', nombre: 'Daily meeting', render: renderDaily,
+      desc: 'Qué hizo cada integrante, qué hará hoy y si hay impedimentos.',
+      metrica: (s) => { const n = (s.daily || []).length; return n ? plural(n, 'día registrado', 'días registrados') : 'Sin registros'; } },
+    { id: 'impedimentos', nombre: 'Impediment log', render: renderImpedimentos,
+      desc: 'Seguimiento de los problemas que afectan al equipo durante el sprint.',
+      metrica: (s) => {
+        const l = s.impedimentos || [];
+        if (!l.length) return 'Sin impedimentos';
+        const a = l.filter(abierto).length;
+        return a ? plural(a, 'abierto', 'abiertos') : 'Ninguno abierto';
+      } },
+    { id: 'dod', nombre: 'Definition of Done', render: renderDod,
+      desc: 'Criterios para considerar una tarea o funcionalidad como completada.',
+      metrica: () => { const c = contarDod(); return c.total ? `${c.ok} de ${c.total} cumplidos` : 'Sin criterios'; } },
+    { id: 'review', nombre: 'Sprint review', render: renderReview,
+      desc: 'Checklist de compromisos del sprint, feedback del usuario y cambios al backlog.',
+      metrica: (s) => { const c = contarReview(s); return c.total ? `${c.ok} de ${c.total} aprobados` : 'Sin registrar'; } },
+    { id: 'retro', nombre: 'Retrospective', render: renderRetro,
+      desc: 'Qué salió bien, qué mejorar y cómo se sintió el equipo.',
+      metrica: (s) => { const n = ((s.retro && s.retro.mejorar) || []).length; return n ? plural(n, 'acción de mejora', 'acciones de mejora') : 'Sin registrar'; } }
+  ];
+
+  /* ---------- Estado ---------- */
+  const sprints = D.sprints || [];
+  let iSprint = Math.max(0, sprints.findIndex((s) => s.nombre === D.sprintActual));
+  if (!D.sprintActual || sprints.findIndex((s) => s.nombre === D.sprintActual) < 0) iSprint = Math.max(0, sprints.length - 1);
+  const idDesdeHash = () => { const id = location.hash.slice(1); return SECCIONES.some((s) => s.id === id) ? id : 'daily'; };
+  let seccion = idDesdeHash();
+
+  /* ---------- Cabecera del sprint ---------- */
+  function pintarCabecera(s) {
+    const ini = parseFecha(s.inicio);
+    const fin = parseFecha(s.fin);
+    const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    const dias = ini && fin ? diasSprint(ini, fin) : [];
+
+    let estado = '';
+    if (ini && fin) {
+      if (hoy < ini) estado = `Comienza el ${fmt(ini, { day: 'numeric', month: 'long' })}`;
+      else if (hoy > fin) estado = 'Sprint finalizado';
+      else estado = `Día ${dias.filter((d) => d <= hoy).length} de ${dias.length}`;
+    }
+
+    const conDaily = new Set((s.daily || []).map((x) => x.fecha));
+    const hoyISO = iso(hoy);
+    const ticks = (ini && fin ? diasSprint(ini, fin, conDaily) : []).map((d) => {
+      const f = iso(d);
+      const reg = conDaily.has(f);
+      const futuro = f > hoyISO;
+      const esHoy = f === hoyISO;
+      const clase = reg ? 'registrada' : futuro ? 'futuro' : esHoy ? '' : 'sin-registro';
+      const texto = reg ? 'daily registrada' : futuro ? 'aún no ocurre' : esHoy ? 'hoy, sin daily registrada todavía' : 'sin daily registrada';
+      return h('button', {
+        type: 'button', class: `dia ${clase}${esHoy ? ' hoy' : ''}`, disabled: !reg,
+        'aria-label': `${fmtLargo(d)}: ${texto}`, title: `${fmtLargo(d)}: ${texto}`,
+        onclick: () => irADaily(f)
+      }, h('span', { class: 'letra', 'aria-hidden': 'true' }, fmt(d, { weekday: 'narrow' })),
+         h('span', { class: 'num', 'aria-hidden': 'true' }, String(d.getDate())));
+    });
+
+    const enlaces = {};
+    for (const k of ['tablero', 'burndown', 'planning']) enlaces[k] = (s.jira && s.jira[k]) || (D.jira && D.jira[k]) || '';
+    const botones = [['tablero', 'Scrum board en Jira'], ['burndown', 'Burndown chart en Jira'], ['planning', 'Sprint planning en Jira']]
+      .filter(([k]) => enlaces[k])
+      .map(([k, t]) => h('a', { class: 'enlace', href: enlaces[k], target: '_blank', rel: 'noopener' }, t, h('span', { class: 'sr' }, ' (se abre en otra pestaña)')));
+
+    montar($('#cabecera'), [
+      h('h2', { class: 'sprint-nombre' }, s.nombre),
+      s.objetivo && h('p', { class: 'objetivo' }, h('span', {}, 'Objetivo: '), s.objetivo),
+      (ini && fin) && h('div', { class: 'meta' }, h('span', {}, rango(ini, fin)), estado && h('span', {}, estado)),
+      ticks.length > 0 && h('div', { class: 'dias', role: 'group', 'aria-label': 'Días del sprint' }, ticks),
+      ticks.length > 0 && h('p', { class: 'leyenda' }, (sieteDias() ? 'Cada casilla es un día del sprint.' : 'Cada casilla es un día hábil (los fines de semana aparecen solo si tienen daily).') + ' Las rellenas tienen daily registrada: toca una para verla.'),
+      botones.length > 0 && h('div', { class: 'enlaces' }, botones)
+    ]);
+  }
+
+  /* ---------- Navegación ---------- */
+  function pintarNav(s) {
+    montar($('#nav'), SECCIONES.map((sec) =>
+      h('a', { href: `#${sec.id}`, class: 'nav-item', 'aria-current': sec.id === seccion ? 'page' : null },
+        h('span', { class: 'nav-nombre' }, sec.nombre),
+        h('span', { class: 'nav-metrica' }, sec.metrica(s)))));
+  }
+
+  /* ---------- Renderizadores de cada instancia ---------- */
+  function renderDaily(s) {
+    const dias = [...(s.daily || [])].sort((a, b) => b.fecha.localeCompare(a.fecha));
+    if (!dias.length) return vacio('Aún no hay dailys registradas en este sprint. Agrega una en ', code('daily'), ' dentro de data.js.');
+    const td = (label, valor, cls) => h('td', { 'data-label': label, class: cls }, valor || '—');
+    return h('div', {}, dias.map((d, i) => {
+      const filas = d.filas || [];
+      const conImp = filas.some((f) => tieneImpedimento(f.impedimentos));
+      return h('details', { class: 'daily', id: `daily-${d.fecha}`, open: i === 0 },
+        h('summary', {},
+          h('span', { class: 'daily-fecha' }, fmtLargo(parseFecha(d.fecha))),
+          conImp && h('span', { class: 'etiqueta alerta' }, 'Con impedimento')),
+        h('table', { class: 'tabla' },
+          h('thead', {}, h('tr', {}, ['¿Qué hice ayer?', '¿Qué haré hoy?', '¿Hay impedimentos?', 'Presentador'].map((t) => h('th', { scope: 'col' }, t)))),
+          h('tbody', {}, filas.map((f) => h('tr', {},
+            td('¿Qué hice ayer?', f.ayer),
+            td('¿Qué haré hoy?', f.hoy),
+            tieneImpedimento(f.impedimentos) ? td('¿Hay impedimentos?', f.impedimentos, 'con-imp') : td('¿Hay impedimentos?', f.impedimentos || 'Ninguno.', 'ninguno'),
+            td('Presentador', f.presentador))))));
+    }));
+  }
+
+  function renderImpedimentos(s) {
+    const lista = s.impedimentos || [];
+    if (!lista.length) return vacio('No hay impedimentos registrados en este sprint. Agrega uno en ', code('impedimentos'), ' dentro de data.js.');
+
+    let filtro = 'todos';
+    const conteo = { todos: lista.length, abiertos: lista.filter(abierto).length, cerrados: lista.filter((i) => !abierto(i)).length };
+    const chips = h('div', { class: 'chips', role: 'group', 'aria-label': 'Filtrar por estado' });
+    const cont = h('div', {});
+
+    const par = (dt, dd, ancho) => h('div', { class: `par${ancho ? ' ancho' : ''}` }, h('dt', {}, dt), h('dd', {}, dd || '—'));
+    const tarjeta = (i) => {
+      const prio = String(i.prioridad || '').trim().toLowerCase();
+      const clasePrio = prio === 'alta' ? 'alerta' : prio === 'media' ? 'pend' : 'neutro';
+      const cerrado = !abierto(i);
+      return h('article', { class: `imp ${cerrado ? 'cerrado' : 'abierto'}` },
+        h('header', { class: 'imp-cab' },
+          h('span', { class: 'imp-id' }, `#${i.id}`),
+          h('h4', {}, i.impedimento),
+          prio && h('span', { class: `etiqueta ${clasePrio}` }, `Prioridad ${prio}`),
+          h('span', { class: `etiqueta ${cerrado ? 'ok' : 'pend'}` }, i.estado || 'Abierto')),
+        h('dl', { class: 'imp-datos' },
+          par('Descripción del impedimento', i.descripcion, true),
+          par('Acción necesaria', i.accion, true),
+          par('Reportado por', i.reportadoPor),
+          par('Responsable', i.responsable),
+          par('Fecha de registro', fmtCorto(i.fechaRegistro)),
+          par('Fecha de resolución', i.fechaResolucion ? fmtCorto(i.fechaResolucion) : 'Sin resolver'),
+          par('Impacto en el sprint', i.impacto, true)));
+    };
+
+    const pintar = () => {
+      montar(chips, [['todos', 'Todos'], ['abiertos', 'Abiertos'], ['cerrados', 'Cerrados']].map(([k, t]) =>
+        h('button', { type: 'button', class: 'chip', 'aria-pressed': String(filtro === k),
+          onclick: () => { filtro = k; pintar(); chips.querySelector('[aria-pressed="true"]').focus(); } },
+          `${t} (${conteo[k]})`)));
+      const vis = lista.filter((i) => filtro === 'todos' || (filtro === 'abiertos' ? abierto(i) : !abierto(i)));
+      montar(cont, vis.length ? vis.map(tarjeta) : [vacio('No hay impedimentos con este estado.')]);
+    };
+    pintar();
+    return h('div', {}, chips, cont);
+  }
+
+  function renderDod() {
+    const grupos = D.definitionOfDone || [];
+    const c = contarDod();
+    if (!c.total) return vacio('Aún no hay criterios. Agrégalos en ', code('definitionOfDone'), ' dentro de data.js.');
+    return h('div', {},
+      barra(`${c.ok} de ${c.total} criterios cumplidos`, c.ok, c.total),
+      grupos.map((g) => {
+        const items = g.items || [];
+        return h('section', { class: 'grupo' },
+          h('header', { class: 'grupo-cab' }, h('h4', {}, g.criterio), h('span', { class: 'cuenta' }, `${items.filter((i) => i.cumplido).length} de ${items.length}`)),
+          h('ul', { class: 'checks' }, items.map((it) =>
+            h('li', { class: it.cumplido ? 'hecho' : 'pendiente' }, icono(it.cumplido),
+              h('span', { class: 'texto' }, h('span', { class: 'sr' }, it.cumplido ? 'Cumplido: ' : 'Pendiente: '), it.texto)))));
+      }));
+  }
+
+  function renderReview(s) {
+    const r = s.review;
+    const historias = (r && r.historias) || [];
+    if (!historias.length) return vacio('Aún no hay una sprint review registrada. Completa ', code('review'), ' en data.js.');
+    const c = contarReview(s);
+    const fecha = r.fecha ? parseFecha(r.fecha) : null;
+    return h('div', {},
+      barra(`${c.ok} de ${c.total} criterios aprobados${fecha ? ` en la review del ${fmtCompleto(fecha)}` : ''}`, c.ok, c.total),
+      historias.map((hist) => {
+        const crit = hist.criterios || [];
+        return h('section', { class: 'grupo' },
+          h('header', { class: 'grupo-cab' }, h('h4', {}, hist.titulo), h('span', { class: 'cuenta' }, `${crit.filter(esAprobado).length} de ${crit.length}`)),
+          h('ul', { class: 'checks rev' }, crit.map((cr) =>
+            h('li', {}, h('span', { class: 'texto' }, cr.texto),
+              h('span', { class: `etiqueta ${esAprobado(cr) ? 'ok' : 'alerta'}` }, esAprobado(cr) ? 'Aprobado' : 'No aprobado')))));
+      }),
+      bloque('Feedback del usuario', r.feedback),
+      bloque('Actualización del backlog', r.backlog));
+  }
+
+  function renderRetro(s) {
+    const r = s.retro || {};
+    const est = r.estados || {};
+    const moods = [['contento', 'Contento'], ['triste', 'Triste'], ['enojado', 'Enojado']];
+    const hay = (r.salioBien || []).length || (r.mejorar || []).length || moods.some(([k]) => (est[k] || []).length);
+    if (!hay) return vacio('Aún no hay una retrospective registrada. Completa ', code('retro'), ' en data.js.');
+    const lista = (items) => (items && items.length) ? h('ul', {}, items.map((t) => h('li', {}, t))) : h('p', { class: 'sin' }, 'Sin registrar.');
+    return h('div', {},
+      h('div', { class: 'retro-dos' },
+        h('section', { class: 'caja' }, h('h4', {}, 'Lo que salió bien'), lista(r.salioBien)),
+        h('section', { class: 'caja' }, h('h4', {}, 'Lo que nos comprometemos a mejorar'), lista(r.mejorar))),
+      h('h4', { class: 'estados-tit' }, 'Cómo se sintió el equipo'),
+      h('div', { class: 'estados' }, moods.map(([k, nombre]) => {
+        const notas = est[k] || [];
+        return h('section', { class: 'estado-col' },
+          h('h4', {}, nombre),
+          notas.length ? notas.map((t) => h('div', { class: `nota ${k}` }, t)) : h('p', { class: 'sin' }, 'Sin notas.'));
+      })));
+  }
+
+  /* ---------- Pintado general ---------- */
+  function pintarVista(s) {
+    const sec = SECCIONES.find((x) => x.id === seccion);
+    montar($('#vista'), [
+      h('div', { class: 'sec-cab' }, h('h3', {}, sec.nombre), h('p', {}, sec.desc)),
+      sec.render(s)
+    ]);
+  }
+
+  function pintarTodo() {
+    const s = sprints[iSprint];
+    if (!s) {
+      montar($('#vista'), [vacio('No hay sprints en data.js. Agrega uno dentro de ', code('sprints'), '.')]);
+      return;
+    }
+    pintarCabecera(s);
+    pintarNav(s);
+    pintarVista(s);
+  }
+
+  function irADaily(fecha) {
+    try { history.replaceState(null, '', '#daily'); } catch (e) { /* file:// en algunos navegadores */ }
+    seccion = 'daily';
+    pintarTodo();
+    const el = document.getElementById(`daily-${fecha}`);
+    if (el) {
+      el.open = true;
+      el.scrollIntoView({ block: 'start' });
+      el.querySelector('summary').focus({ preventScroll: true });
+    }
+  }
+
+  /* ---------- Inicio ---------- */
+  document.title = `${D.proyecto || 'Proyecto'} - Dashboard Scrum`;
+  $('#proyecto').textContent = D.proyecto || 'Dashboard Scrum';
+  if (D.curso) $('#curso').textContent = D.curso; else $('#curso').remove();
+
+  if (D.esEjemplo) {
+    const av = $('#aviso');
+    av.hidden = false;
+    montar(av, ['Estás viendo datos de ejemplo. Reemplázalos en ', code('data.js'), ' y cambia ', code('esEjemplo'), ' a ', code('false'), '.']);
+  }
+
+  const sel = $('#selSprint');
+  montar(sel, sprints.map((s, i) => h('option', { value: i, selected: i === iSprint }, s.nombre)));
+  sel.addEventListener('change', () => { iSprint = Number(sel.value); pintarTodo(); });
+
+  window.addEventListener('hashchange', () => {
+    seccion = idDesdeHash();
+    pintarTodo();
+    if (window.matchMedia('(max-width: 860px)').matches) $('#vista').scrollIntoView({ block: 'start' });
+  });
+
+  pintarTodo();
+})();
+</script>
+</body>
+</html>
