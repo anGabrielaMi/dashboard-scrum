@@ -8,8 +8,6 @@
    - Las fechas van siempre como "AAAA-MM-DD" (ejemplo: "2026-09-14").
    - Los textos van entre comillas. Cada elemento de una lista termina en coma.
    - Si un campo no aplica, déjalo vacío: "".
-   - Los datos de abajo son EJEMPLOS. Reemplázalos por los tuyos y
-     cambia esEjemplo a false para ocultar el aviso.
    ===================================================================== */
 
 window.DASHBOARD = {
@@ -27,7 +25,7 @@ window.DASHBOARD = {
   },
 
   /* Sprint que se muestra al abrir la página. Si lo omites, se muestra el último. */
-  sprintActual: "Sprint 6",
+  sprintActual: "Sprint 7",
 
   /* -------------------------------------------------------------------
      DEFINITION OF DONE
@@ -119,14 +117,8 @@ window.DASHBOARD = {
             { ayer: "Crear y validar el formulario de registro, actualizar modelo E-R, crear dashboard para ordenar información semana 6", hoy: " Continuar con entrega de semana 6", impedimentos: ".", presentador: "Ana Miño" },
             { ayer: "Revisar retroalimentación S5", hoy: "Mejorar historias de usuario con criterios de aceptación, estimación de esfuerzo, Re-distribuir historias Sprint sgte. ", impedimentos: "", presentador: "Ana Miño" }
           ]
-        },
-        {
-          fecha: "2026-09-21",
-          filas: [
-            { ayer: "Documentos entrega semana 6", hoy: "Añadir evidencias a historias con criterios aprobados", impedimentos: "", presentador: "Ana Miño" },
-            { ayer: "", hoy: "Planificar tiempos para pendientes Sprint 6: criterios de aceptación faltantes y  Revisar impedimento asociado al side-menu", impedimentos: "", presentador: "Ana Miño" }
-          ]
         }
+       
       ],
 
       /* ---------------- IMPEDIMENT LOG ----------------
@@ -214,6 +206,118 @@ window.DASHBOARD = {
           triste: ["Fue necesario dejar el Sprint más corto, habrá retraso en el proyecto final."],
           enojado: ["Faltan criterios de aceptación en historias de Sprint 6"]
         }
+      }
+    },
+
+    /* =====================================================================
+       SPRINT 7 — RELLENO DE EJEMPLO
+       Copié las dailys, el impedimento, etc. del Sprint 6 solo para que
+       tengas el molde a la vista. Reemplaza cada texto por lo real de
+       esta semana; deja la ESTRUCTURA (llaves, comillas, comas) igual.
+       ===================================================================== */
+    {
+      nombre: "Sprint 7",
+      objetivo: "",
+      inicio: "2026-09-21",
+      fin: "2026-09-27",
+
+      /* Si el burndown de este sprint es distinto al general, pégalo aquí.
+         Si no, deja "" y se usa el enlace general de arriba. */
+      jira: {
+        burndown: ""
+      },
+
+      /* ---------------- DAILY MEETING ----------------
+         Una entrada por día. Cada fila es un integrante.
+         Reemplaza "ayer"/"hoy"/"impedimentos"/"presentador" de cada día. */
+      daily: [
+         {
+          fecha: "2026-09-21",
+          filas: [
+            { ayer: "Documentos entrega semana 6", hoy: "Añadir evidencias a historias con criterios aprobados", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "", hoy: "Planificar tiempos para pendientes Sprint 6: criterios de aceptación faltantes y  Revisar impedimento asociado al side-menu", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-09-23",
+          filas: [
+            { ayer: "Planificar tiempos", hoy: "Revisar caso impedimento side-menu hacia avisos", impedimentos: "Ninguno.", presentador: "Ana Miño" }
+           
+          ]
+        },
+        {
+          fecha: "2026-09-24",
+          filas: [
+            { ayer: "Se reolvió impedimento side-menú -avisos", hoy: "Actualización de repo y dashboard", impedimentos: ".", presentador: "Ana Miño" }
+            
+          ]
+        },
+        {
+          fecha: "2026-09-25",
+          filas: [
+            { ayer: "Actualización Github repositorio y dashboard", hoy: "Actualizar historias (evidencias)/Cerrar pendientes Sprint 6", impedimentos: "", presentador: "Ana Miño" }
+            
+          ]
+        },
+        {
+          fecha: "2026-09-26",
+          filas: [
+            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-09-27",
+          filas: [
+            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-09-28",
+          filas: [
+            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        }
+      ],
+
+      /* ---------------- IMPEDIMENT LOG ----------------
+         El de "side-menu" ya se resolvió en bimestre6 (era el RouterLink
+         faltante en app.component.ts). Bórralo o ciérralo si ya no aplica
+         a este sprint, y agrega los impedimentos reales de esta semana. */
+      impedimentos: [
+        {
+          id: 1,
+          impedimento: "Funcionalidad side-menu, hacia página -Avisos",
+          descripcion: "El menú lateral no lograba navegar hacia /avisos, aunque la ruta funcionaba directo. Faltaba declarar RouterLink en los imports de app.component.ts.",
+          prioridad: "Alta",
+          reportadoPor: "Ana Miño",
+          responsable: "Ana Miño",
+          accion: "Agregar RouterLink (y RouterLinkActive) al arreglo imports de app.component.ts.",
+          estado: "Cerrado",
+          fechaRegistro: "2026-09-20",
+          fechaResolucion: "2026-09-24",
+          impacto: "No se podía validar el flujo registro, login, home, avisos hasta resolverlo."
+        }
+      ],
+
+      /* ---------------- SPRINT REVIEW ----------------
+         Llena cuando hagas la review de este sprint. */
+      review: {
+        fecha: "",
+        historias: [],
+        feedback: "",
+        backlog: []
+      },
+
+      /* ---------------- RETROSPECTIVE ----------------
+         Llena cuando hagas la retro de este sprint. */
+      retro: {
+        fecha: "",
+        salioBien: [],
+        mejorar: [],
+        estados: { contento: [], triste: [], enojado: [] }
       }
     }
   ]
