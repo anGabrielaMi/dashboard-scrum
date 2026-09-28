@@ -306,8 +306,11 @@
     const x = String(t || '').trim().toLowerCase().replace(/\.$/, '');
     return x !== '' && !['ninguno', 'no', 'sin impedimentos', 'no aplica'].includes(x);
   };
-  const contarDod = () => {
-    const items = (D.definitionOfDone || []).flatMap((g) => g.items || []);
+  /* Definition of Done POR SPRINT: se usa la del sprint (s.definitionOfDone).
+     Si el sprint no tiene una, se usa la general de data.js (D.definitionOfDone). */
+  const dodDe = (s) => (s && Array.isArray(s.definitionOfDone) ? s.definitionOfDone : (D.definitionOfDone || []));
+  const contarDod = (s) => {
+    const items = dodDe(s).flatMap((g) => g.items || []);
     return { total: items.length, ok: items.filter((i) => i.cumplido).length };
   };
   const contarReview = (s) => {
@@ -330,8 +333,8 @@
         return a ? plural(a, 'abierto', 'abiertos') : 'Ninguno abierto';
       } },
     { id: 'dod', nombre: 'Definition of Done', render: renderDod,
-      desc: 'Criterios para considerar una tarea o funcionalidad como completada.',
-      metrica: () => { const c = contarDod(); return c.total ? `${c.ok} de ${c.total} cumplidos` : 'Sin criterios'; } },
+      desc: 'Criterios para considerar una tarea o funcionalidad como completada en este sprint.',
+      metrica: (s) => { const c = contarDod(s); return c.total ? `${c.ok} de ${c.total} cumplidos` : 'Sin criterios'; } },
     { id: 'review', nombre: 'Sprint review', render: renderReview,
       desc: 'Checklist de compromisos del sprint, feedback del usuario y cambios al backlog.',
       metrica: (s) => { const c = contarReview(s); return c.total ? `${c.ok} de ${c.total} aprobados` : 'Sin registrar'; } },
@@ -466,10 +469,10 @@
     return h('div', {}, chips, cont);
   }
 
-  function renderDod() {
-    const grupos = D.definitionOfDone || [];
-    const c = contarDod();
-    if (!c.total) return vacio('Aún no hay criterios. Agrégalos en ', code('definitionOfDone'), ' dentro de data.js.');
+  function renderDod(s) {
+    const grupos = dodDe(s);
+    const c = contarDod(s);
+    if (!c.total) return vacio('Aún no hay criterios para este sprint. Agrégalos en ', code('definitionOfDone'), ' dentro del sprint en data.js.');
     return h('div', {},
       barra(`${c.ok} de ${c.total} criterios cumplidos`, c.ok, c.total),
       grupos.map((g) => {
