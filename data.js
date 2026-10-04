@@ -14,7 +14,7 @@
 window.DASHBOARD = {
   esEjemplo: false,
 
-  proyecto: "Proyecto - Reúna ",
+  proyecto: "Proyecto - Reúna",
   curso: "Portafolio de Título (PTY4479)",
 
   /* Enlaces a Jira. Si dejas uno vacío ("") el botón no aparece.
@@ -25,8 +25,9 @@ window.DASHBOARD = {
     planning: "https://bimestre9.atlassian.net/jira/software/projects/BI9123/boards/35/backlog"
   },
 
-  /* Sprint que se muestra al abrir la página. Si lo omites, se muestra el último. */
-  sprintActual: "Sprint 7",
+  /* Sprint que se muestra al abrir la página. Si lo omites, se muestra el último.
+     Cámbialo a "Sprint 9" cuando comience el Sprint 9. */
+  sprintActual: "Sprint 8",
 
   /* -------------------------------------------------------------------
      SPRINTS
@@ -51,69 +52,51 @@ window.DASHBOARD = {
         {
           fecha: "2026-09-18",
           filas: [
-            { ayer: "No aplica.", hoy: "Revisar retroalimentación S5 .", impedimentos: "Ninguno.", presentador: "Ana Miño" },
-            { ayer: "No aplica.", hoy: "Revisar formato de entrega S6", impedimentos: "Ninguno.", presentador: "Ana Miño" }
+            { ayer: "No aplica.", hoy: "Revisar retroalimentación S5.", impedimentos: "Ninguno.", presentador: "Ana Miño" },
+            { ayer: "No aplica.", hoy: "Revisar formato de entrega S6.", impedimentos: "Ninguno.", presentador: "Ana Miño" }
           ]
         },
         {
           fecha: "2026-09-19",
           filas: [
-            { ayer: "Revisar retroalimentación S5", hoy: "Actualizar modelo E-R (añade tabla comunidades) .", impedimentos: "Ninguno.", presentador: "Ana Miño" },
-            { ayer: "Revisar formato de entrega S6", hoy: "Crear y validar el formulario de registro; comenzar documentación nueva solicitada en semana 6.", impedimentos: ".", presentador: "Ana Miño" },
-            { ayer: "Revisar formato de entrega S6", hoy: "Validar flujo en navegación: registro-login-home-avisos", impedimentos: " Funciona solo hasta home, menú lateral que incluye opción avisos no dirige a página avisos", presentador: "Ana Miño" }
+            { ayer: "Revisar retroalimentación S5.", hoy: "Actualizar modelo E-R (añade tabla comunidades).", impedimentos: "Ninguno.", presentador: "Ana Miño" },
+            { ayer: "Revisar formato de entrega S6.", hoy: "Crear y validar el formulario de registro; comenzar documentación nueva solicitada en semana 6.", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "Revisar formato de entrega S6.", hoy: "Validar flujo en navegación: registro-login-home-avisos.", impedimentos: "Funciona solo hasta home; la opción Avisos del menú lateral no dirige a la página de avisos.", presentador: "Ana Miño" }
           ]
         },
         {
           fecha: "2026-09-20",
           filas: [
-            { ayer: "Crear y validar el formulario de registro, actualizar modelo E-R, crear dashboard para ordenar información semana 6", hoy: " Continuar con entrega de semana 6", impedimentos: ".", presentador: "Ana Miño" },
-            { ayer: "Revisar retroalimentación S5", hoy: "Mejorar historias de usuario con criterios de aceptación, estimación de esfuerzo, Re-distribuir historias Sprint sgte. ", impedimentos: "", presentador: "Ana Miño" }
+            { ayer: "Crear y validar el formulario de registro, actualizar modelo E-R, crear dashboard para ordenar información semana 6.", hoy: "Continuar con entrega de semana 6.", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "Revisar retroalimentación S5.", hoy: "Mejorar historias de usuario con criterios de aceptación y estimación de esfuerzo; redistribuir historias para el sprint siguiente.", impedimentos: "", presentador: "Ana Miño" }
           ]
         }
       ],
 
       /* ---------------- DEFINITION OF DONE (de este sprint) ----------------
+         Adaptada para un equipo de una persona (misma base que los Sprints 7 y 8).
          Marca cumplido: true cuando el criterio ya se cumple. */
       definitionOfDone: [
         {
-          criterio: "Código revisado y limpio",
+          criterio: "Funciona según la historia",
           items: [
-            { texto: "El código ha sido revisado por al menos un miembro del equipo.", cumplido: true },
-            { texto: "No hay errores críticos ni advertencias en la compilación.", cumplido: false },
-            { texto: "El código sigue las convenciones de nomenclatura y estilo del equipo.", cumplido: true }
+            { texto: "Todos los criterios de aceptación de la historia fueron probados en la app y se cumplen.", cumplido: false },
+            { texto: "Los permisos se validan también en la API.", cumplido: true }
           ]
         },
         {
-          criterio: "Pruebas completadas",
+          criterio: "Código listo",
           items: [
-            { texto: "Se han ejecutado pruebas unitarias para verificar la funcionalidad.", cumplido: false },
-            { texto: "Se han realizado pruebas de integración para asegurar la compatibilidad con otros módulos.", cumplido: false }
+            { texto: "El frontend compila y el backend corre sin errores.", cumplido: false },
+            { texto: "Las migraciones están creadas y aplicadas; requirements.txt está actualizado.", cumplido: true },
+            { texto: "El código está subido a GitHub con un commit que describe la historia.", cumplido: true }
           ]
         },
         {
-          criterio: "Aprobación de funcionalidades",
+          criterio: "Evidencia y registro",
           items: [
-            { texto: "El Product Owner ha revisado y aprobado la funcionalidad en una demostración.", cumplido: false },
-            { texto: "Todo el equipo considera que para cada objetivo o requisito se cumplen sus criterios de aceptación.", cumplido: false }
-          ]
-        },
-        {
-          criterio: "Revisión de código",
-          items: [
-            { texto: "Otro miembro del equipo ha revisado el código para identificar posibles mejoras o problemas.", cumplido: false }
-          ]
-        },
-        {
-          criterio: "Demostración",
-          items: [
-            { texto: "La funcionalidad ha sido demostrada al equipo y al Product Owner.", cumplido: false },
-            { texto: "Se ha validado que cumple con los requisitos y expectativas definidas en el Product Backlog.", cumplido: false }
-          ]
-        },
-        {
-          criterio: "Código integrado",
-          items: [
-            { texto: "El trabajo de todos los miembros del equipo de desarrollo está totalmente integrado en cada iteración.", cumplido: false }
+            { texto: "Cada criterio tiene evidencia (captura, prueba de API o video de Playwright).", cumplido: false },
+            { texto: "La historia está actualizada en Jira y en el dashboard (Sprint Review).", cumplido: true }
           ]
         }
       ],
@@ -124,8 +107,8 @@ window.DASHBOARD = {
       impedimentos: [
         {
           id: 1,
-          impedimento: "Funcionalidad side-menu, hacia página -Avisos",
-          descripcion: "El menú lateral no logra navegar hacia /avisos, aunque la ruta funciona directo. Ya se revisó:  app.component.html, side-menu.component.html, avisos.page.ts, avisos.page.html, avisos.service.ts y main.ts. Próximo paso: confirmar integración de ion-menu con ion-router-outlet y ajustar navegación desde el menú.",
+          impedimento: "Funcionalidad side-menu, hacia página Avisos",
+          descripcion: "El menú lateral no logra navegar hacia /avisos, aunque la ruta funciona directo. Ya se revisó: app.component.html, side-menu.component.html, avisos.page.ts, avisos.page.html, avisos.service.ts y main.ts. Próximo paso: confirmar integración de ion-menu con ion-router-outlet y ajustar navegación desde el menú.",
           prioridad: "Alta",
           reportadoPor: "Ana Miño",
           responsable: "Ana Miño",
@@ -133,7 +116,7 @@ window.DASHBOARD = {
           estado: "Abierto",
           fechaRegistro: "2026-09-20",
           fechaResolucion: "",
-          impacto: "Retraso en avance de Sprint 6: no se puede validar flujo registro, login, home, avisos hasta resolverlo"
+          impacto: "Retraso en avance de Sprint 6: no se puede validar el flujo registro, login, home, avisos hasta resolverlo."
         }
       ],
 
@@ -144,7 +127,7 @@ window.DASHBOARD = {
         fecha: "2026-09-20",
         historias: [
           {
-            titulo: "Login - Como usuario (líder, colaborador, administrador) quiero iniciar sesión con mis credenciales. Para acceder a la plataforma. ",
+            titulo: "Login (BI9123-14) - Como usuario (líder, colaborador o administrador), quiero iniciar sesión con mis credenciales, para acceder a la plataforma.",
             criterios: [
               { texto: "El sistema solicita usuario y contraseña en un formulario.", estado: "Aprobado" },
               { texto: "Los campos obligatorios no pueden quedar vacíos.", estado: "No aprobado" },
@@ -153,7 +136,7 @@ window.DASHBOARD = {
             ]
           },
           {
-            titulo: "Registro - Como nuevo usuario, quiero registrarme en la plataforma, para participar en ella. ",
+            titulo: "Registro (BI9123-15) - Como nuevo usuario, quiero registrarme en la plataforma, para participar en ella.",
             criterios: [
               { texto: "El sistema solicita nombre, correo electrónico y contraseña en un formulario.", estado: "Aprobado" },
               { texto: "Si las credenciales son incorrectas, se muestra un mensaje de error claro.", estado: "Aprobado" },
@@ -161,24 +144,24 @@ window.DASHBOARD = {
             ]
           },
           {
-            titulo: "Consultar Avisos- Como colaborador, quiero consultar los avisos publicados en la plataforma ",
+            titulo: "Consultar avisos (BI9123-3) - Como colaborador, quiero consultar los avisos publicados en la plataforma.",
             criterios: [
               { texto: "El usuario puede ver una lista de avisos ordenados por fecha.", estado: "Aprobado" },
               { texto: "El usuario puede abrir un aviso y leer su contenido completo.", estado: "No aprobado" },
-              { texto: "El usuario puede filtrar avisos, por fecha, o categoría.", estado: "No aprobado" }
+              { texto: "El usuario puede filtrar avisos por fecha o categoría.", estado: "No aprobado" }
             ]
           },
           {
-            titulo: "Asignar permisos- Como administrador, quiero asignar  permisos a los usuarios, para asegurar que cada uno de ellos acceda a las funciones que se estimen convenientes.",
+            titulo: "Asignar permisos (BI9123-16) - Como administrador, quiero asignar permisos a los usuarios, para asegurar que cada uno acceda a las funciones que se estimen convenientes.",
             criterios: [
-              { texto: "Solo los usuarios con is_staff = True o is_superuser = True pueden ingresar al panel admin", estado: "Aprobado" },
-              { texto: "Un usuario marcado como is_active = True puede autenticarse en la aplicación", estado: "Aprobado" }
+              { texto: "Solo los usuarios con is_staff = True o is_superuser = True pueden ingresar al panel admin.", estado: "Aprobado" },
+              { texto: "Un usuario marcado como is_active = True puede autenticarse en la aplicación.", estado: "Aprobado" }
             ]
           }
         ],
-        feedback: "Campo correo electrónico ya existe tanto en login como en registro, es necesario que sea obligatorio.",
+        feedback: "El campo correo electrónico ya existe tanto en login como en registro; es necesario que sea obligatorio.",
         backlog: [
-          "Se re-ordenan las historias para continuar en el siguiente Sprint, la extensión de este Sprint cambió (de 15, a 4 historias)"
+          "Se reordenan las historias para continuar en el siguiente sprint; el alcance de este sprint cambió (de 15 a 4 historias)."
         ]
       },
 
@@ -187,16 +170,16 @@ window.DASHBOARD = {
       retro: {
         fecha: "2026-09-20",
         salioBien: [
-          "Comienzo de Daily (meeting), Sprint review, impediment log,Definition of Done.",
+          "Comienzo de Daily Meeting, Sprint Review, Impediment Log y Definition of Done.",
           "Todo lo anterior generó claridad en pasos específicos y planificación."
         ],
         mejorar: [
-          "Planificación de las historias en Sprints realistas, dada la carga de trabajo, el tiempo disponible y tamaño del equipo."
+          "Planificación de las historias en sprints realistas, dada la carga de trabajo, el tiempo disponible y el tamaño del equipo."
         ],
         estados: {
-          contento: ["Se reorganizó Jira, aclarando perspectiva de avances y mejoras necesarias."],
-          triste: ["Fue necesario dejar el Sprint más corto, habrá retraso en el proyecto final."],
-          enojado: ["Faltan criterios de aceptación en historias de Sprint 6"]
+          contento: ["Se reorganizó Jira, aclarando la perspectiva de avances y mejoras necesarias."],
+          triste: ["Fue necesario dejar el sprint más corto; habrá retraso en el proyecto final."],
+          enojado: ["Faltan criterios de aceptación en historias del Sprint 6."]
         }
       }
     },
@@ -206,7 +189,7 @@ window.DASHBOARD = {
        ===================================================================== */
     {
       nombre: "Sprint 7",
-      objetivo: "",
+      objetivo: "Que los líderes publiquen y editen avisos en su comunidad, y que cada miembro consulte solo los avisos que le corresponden, navegando con facilidad por la aplicación.",
       inicio: "2026-09-21",
       fin: "2026-09-28",
 
@@ -221,45 +204,38 @@ window.DASHBOARD = {
         {
           fecha: "2026-09-21",
           filas: [
-            { ayer: "Documentos entrega semana 6", hoy: "Añadir evidencias a historias con criterios aprobados", impedimentos: "", presentador: "Ana M." },
-            { ayer: "", hoy: "Planificar tiempos para pendientes Sprint 6: criterios de aceptación faltantes y  Revisar impedimento asociado al side-menu", impedimentos: "", presentador: "Ana Miño" }
+            { ayer: "Documentos entrega semana 6.", hoy: "Añadir evidencias a historias con criterios aprobados.", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "", hoy: "Planificar tiempos para pendientes del Sprint 6: criterios de aceptación faltantes y revisar impedimento asociado al side-menu.", impedimentos: "", presentador: "Ana Miño" }
           ]
         },
         {
           fecha: "2026-09-23",
           filas: [
-            { ayer: "Planificar tiempos", hoy: "Revisar caso impedimento side-menu hacia avisos", impedimentos: "Ninguno.", presentador: "Ana M." }
+            { ayer: "Planificar tiempos.", hoy: "Revisar caso impedimento side-menu hacia avisos.", impedimentos: "Ninguno.", presentador: "Ana Miño" }
           ]
         },
         {
           fecha: "2026-09-24",
           filas: [
-            { ayer: "Se resolvió impedimento side-menú -avisos", hoy: "Actualización de repo y dashboard", impedimentos: "Ninguno", presentador: "Ana M." }
+            { ayer: "Se resolvió impedimento side-menu hacia avisos.", hoy: "Actualización de repositorio y dashboard.", impedimentos: "Ninguno.", presentador: "Ana Miño" }
           ]
         },
         {
           fecha: "2026-09-25",
           filas: [
-            { ayer: "Actualización Github repositorio y dashboard", hoy: "Actualizar historias/Cerrar pendientes Sprint 6", impedimentos: "", presentador: "Ana M." }
+            { ayer: "Actualización de repositorio GitHub y dashboard.", hoy: "Actualizar historias / cerrar pendientes Sprint 6.", impedimentos: "", presentador: "Ana Miño" }
           ]
         },
         {
           fecha: "2026-09-26",
           filas: [
-            { ayer: "Actualizar historias/Cerrar pendientes Sprint 6", hoy: "cerrar historias sprint 6, comenzar sprint 7", impedimentos: "", presentador: "Ana M." }
+            { ayer: "Actualizar historias / cerrar pendientes Sprint 6.", hoy: "Cerrar historias Sprint 6, comenzar Sprint 7.", impedimentos: "", presentador: "Ana Miño" }
           ]
         },
         {
           fecha: "2026-09-27",
           filas: [
-            { ayer: "cerrar historias sprint 6, comenzar sprint 7", hoy: "Cerrar Sprint 7", impedimentos: "Faltó historia de 'Coherencia visual diseño y marca'", presentador: "Ana M." }
-          ]
-        },
-        {
-          fecha: "2026-09-28",
-          filas: [
-            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana M." },
-            { ayer: "", hoy: "", impedimentos: "", presentador: "Ana M." }
+            { ayer: "Cerrar historias Sprint 6, comenzar Sprint 7.", hoy: "Cerrar Sprint 7.", impedimentos: "Faltó historia de \"Coherencia visual: diseño y marca\".", presentador: "Ana Miño" }
           ]
         }
       ],
@@ -296,11 +272,11 @@ window.DASHBOARD = {
       impedimentos: [
         {
           id: 1,
-          impedimento: "Funcionalidad side-menu, hacia página -Avisos",
+          impedimento: "Funcionalidad side-menu, hacia página Avisos",
           descripcion: "El menú lateral no lograba navegar hacia /avisos, aunque la ruta funcionaba directo. Faltaba declarar RouterLink en los imports de app.component.ts.",
           prioridad: "Alta",
-          reportadoPor: "Ana M.",
-          responsable: "Ana M.",
+          reportadoPor: "Ana Miño",
+          responsable: "Ana Miño",
           accion: "Agregar RouterLink (y RouterLinkActive) al arreglo imports de app.component.ts.",
           estado: "Cerrado",
           fechaRegistro: "2026-09-20",
@@ -309,16 +285,16 @@ window.DASHBOARD = {
         },
         {
           id: 2,
-          impedimento: "Faltó concretar historia- Coherencia visual-diseño y marca",
+          impedimento: "Faltó concretar historia: Coherencia visual, diseño y marca",
           descripcion: "La historia no tiene una descripción clara y falta definir criterios de aceptación concretos y verificables.",
           prioridad: "Media",
-          reportadoPor: "Ana M.",
-          responsable: "Ana M.",
-          accion: "La historia será replanteada, se dividirá en dos: 1) guía de estilo 2) Aplicación de identidad visual. Se implementará en Sprint 8. Pendiente: agregar los cambios al backlog.",
-          estado: "Abierto",
+          reportadoPor: "Ana Miño",
+          responsable: "Ana Miño",
+          accion: "Se replanteó como una sola historia simple (BI9123-23), con criterios de aceptación y guía de estilo breve, y se agregó al backlog para el Sprint 9.",
+          estado: "Cerrado",
           fechaRegistro: "2026-09-28",
-          fechaResolucion: "",
-          impacto: "La historia no se comenzó, queda sin aprobar en el Sprint 7 "
+          fechaResolucion: "2026-10-01",
+          impacto: "La historia no se comenzó; queda sin aprobar en el Sprint 7 y pasa al Sprint 9."
         }
       ],
 
@@ -327,85 +303,312 @@ window.DASHBOARD = {
         fecha: "2026-09-28",
         historias: [
           {
-            titulo: "Consultar aviso- Como colaborador, quiero consultar los avisos publicados en la plataforma",
+            titulo: "Consultar avisos (BI9123-3) - Como colaborador, quiero consultar los avisos publicados en la plataforma.",
             criterios: [
-              { texto: "El usuario puede ver una lista de avisos ordenados por fecha. ", estado: "Aprobado" },
+              { texto: "El usuario puede ver una lista de avisos ordenados por fecha.", estado: "Aprobado" },
               { texto: "El usuario puede abrir un aviso y leer su contenido completo.", estado: "Aprobado" },
-              { texto: "El usuario puede filtrar avisos, por fecha, o categoría. ", estado: "Aprobado" }
+              { texto: "El usuario puede filtrar avisos por fecha o categoría.", estado: "Aprobado" }
             ]
           },
           {
-            titulo: "Editar aviso -Como administrador, quiero editar un aviso publicado, para corregir o actualizar información. ",
+            titulo: "Editar aviso (BI9123-4) - Como administrador, quiero editar un aviso publicado, para corregir o actualizar información.",
             criterios: [
-              { texto: "El aviso editado se actualiza en caso de ser editado.", estado: "Aprobado" },
-              { texto: "El sistema registra la fecha de la última edición. ", estado: "Aprobado" },
+              { texto: "El aviso se actualiza al ser editado.", estado: "Aprobado" },
+              { texto: "El sistema registra la fecha de la última edición.", estado: "Aprobado" },
               { texto: "Solo el administrador puede editar desde Django.", estado: "Aprobado" }
             ]
           },
           {
-            titulo: "Clasificar avisos según comunidad respectiva- Como administrador quiero clasificar el aviso que publique, para que sea visto solamente por la comunidad a la que está dirigido",
+            titulo: "Clasificar avisos según comunidad (BI9123-37) - Como administrador, quiero clasificar el aviso que publique, para que sea visto solamente por la comunidad a la que está dirigido.",
             criterios: [
-              { texto: "El aviso se clasifica con el nombre de [comunidad 1] u otra.", estado: "Aprobado" },
-              { texto: "El aviso clasificado en esa comunidad  solo es visto por los usuarios adscritos a ella.", estado: "Aprobado" },
-              { texto: "Cada aviso tiene en la tarjeta el nombre de la comunidad a la que pertenece. Si un usuario pertenece a más de una comunidad puede identificar de este modo desde dónde proviene la información. ", estado: "Aprobado" },
+              { texto: "El aviso se clasifica con el nombre de la comunidad.", estado: "Aprobado" },
+              { texto: "El aviso clasificado en una comunidad solo es visto por los usuarios adscritos a ella.", estado: "Aprobado" },
+              { texto: "Cada aviso muestra en la tarjeta el nombre de su comunidad; si un usuario pertenece a más de una, puede identificar de dónde proviene la información.", estado: "Aprobado" },
               { texto: "Un aviso sin comunidad asignada es visible para todos los usuarios, incluso sin iniciar sesión, e indica “Reúna” como origen.", estado: "Aprobado" }
             ]
           },
           {
-            titulo: "Publicar aviso - Como líder comunitario, quiero publicar un aviso en la plataforma para informar sobre asuntos importantes. ",
+            titulo: "Publicar aviso (BI9123-2) - Como líder comunitario, quiero publicar un aviso en la plataforma para informar sobre asuntos importantes.",
             criterios: [
-              { texto: "El aviso debe mostrar título, contenido, fecha de publicación.", estado: "Aprobado" },
-              { texto: "El aviso debe ser visible para todos los colaboradores de la comunidad.", estado: "Aprobado" },
+              { texto: "El aviso muestra título, contenido y fecha de publicación.", estado: "Aprobado" },
+              { texto: "El aviso es visible para todos los colaboradores de la comunidad.", estado: "Aprobado" },
               { texto: "El aviso aparece en la lista de avisos de la comunidad.", estado: "Aprobado" },
-              { texto: "Al publicar, el líder selecciona la categoría del aviso (Reunión, Evento, Comunicado, Encuesta, Urgente, General)", estado: "Aprobado" },
+              { texto: "Al publicar, el líder selecciona la categoría del aviso (Reunión, Evento, Comunicado, Encuesta, Urgente, General).", estado: "Aprobado" },
               { texto: "El aviso queda asociado automáticamente a la comunidad del líder; si el líder es de varias, elige entre ellas.", estado: "Aprobado" },
-              { texto: "Un líder no puede publicar avisos de comunidades donde no es líder. ", estado: "Aprobado" },
-              { texto: "Un colaborador no puede publicar", estado: "Aprobado" }
+              { texto: "Un líder no puede publicar avisos en comunidades donde no es líder.", estado: "Aprobado" },
+              { texto: "Un colaborador no puede publicar.", estado: "Aprobado" }
             ]
           },
           {
-            titulo: "Editar aviso desde la app (Líder) - Como líder de una comunidad, quiero editar los avisos de mi comunidad desde la app, para corregir o actualizar información sin depender del administrador. ",
+            titulo: "Editar aviso desde la app, Líder (BI9123-38) - Como líder de una comunidad, quiero editar los avisos de mi comunidad desde la app, para corregir o actualizar información sin depender del administrador.",
             criterios: [
               { texto: "El líder ve la opción “Editar” en los avisos de las comunidades donde es líder.", estado: "Aprobado" },
               { texto: "El líder puede modificar título, contenido y categoría del aviso; la comunidad no se puede cambiar.", estado: "Aprobado" },
               { texto: "Cualquier líder de la comunidad puede editar sus avisos, y queda registrado quién hizo la última edición y cuándo.", estado: "Aprobado" },
               { texto: "El detalle del aviso muestra quién lo publicó y, si fue editado, quién y cuándo lo editó por última vez.", estado: "Aprobado" },
-              { texto: "Un líder no puede editar avisos de comunidades donde no es líder, ni avisos de Reúna (avisos que no se clasifican en ninguna comunidad)", estado: "Aprobado" },
-              { texto: "Un colaborador no ve la opción “Editar” y la API rechaza su intento (403)", estado: "Aprobado" }
+              { texto: "Un líder no puede editar avisos de comunidades donde no es líder, ni avisos de Reúna (sin comunidad).", estado: "Aprobado" },
+              { texto: "Un colaborador no ve la opción “Editar” y la API rechaza su intento (403).", estado: "Aprobado" }
             ]
           },
           {
-            titulo: "Navegación general de la plataforma - Como usuario, quiero moverme entre las secciones de Reúna desde un menú claro que se adapte a si inicié sesión, para encontrar la información sin perderme.",
+            titulo: "Navegación general de la plataforma (BI9123-22) - Como usuario, quiero moverme entre las secciones de Reúna desde un menú claro que se adapte a si inicié sesión, para encontrar la información sin perderme.",
             criterios: [
               { texto: "El menú lateral está disponible en todas las pantallas principales y marca la sección en la que está el usuario.", estado: "Aprobado" },
-              { texto: "Las secciones ya construidas (Home y Avisos) son accesibles desde el menú; las demás muestran una página “Próximamente” hasta que se activen sus propias historias.", estado: "Aprobado" },
-              { texto: "Sin sesión, el menú muestra “Iniciar sesión” y “Registrarse”; con sesión, muestra el nombre de usuario y “Cerrar sesión”", estado: "Aprobado" },
+              { texto: "Las secciones ya construidas (Home y Avisos) son accesibles desde el menú; las demás muestran una página “Próximamente” hasta que se activen sus historias.", estado: "Aprobado" },
+              { texto: "Sin sesión, el menú muestra “Iniciar sesión” y “Registrarse”; con sesión, muestra el nombre de usuario y “Cerrar sesión”.", estado: "Aprobado" },
               { texto: "Al iniciar sesión, el usuario llega a Home y puede usar el menú.", estado: "Aprobado" },
               { texto: "Al cerrar sesión, el usuario vuelve a Home y ya no ve contenido de sus comunidades.", estado: "Aprobado" },
-              { texto: "Si un usuario sin sesión intenta entrar a una página que la requiere (por ejemplo, Publicar aviso), se le lleva  a iniciar sesión.", estado: "Aprobado" },
-              { texto: "El botón “Volver” de cada pantalla lleva a la pantalla anterior lógica (por ejemplo, del detalle de un aviso, a la lista de avisos).", estado: "Aprobado" },
-              { texto: "La navegación funciona en pantalla de celular y de computador. ", estado: "Aprobado" }
+              { texto: "Si un usuario sin sesión intenta entrar a una página que la requiere (por ejemplo, Publicar aviso), se le lleva a iniciar sesión.", estado: "Aprobado" },
+              { texto: "El botón “Volver” de cada pantalla lleva a la pantalla anterior lógica (por ejemplo, del detalle de un aviso a la lista de avisos).", estado: "Aprobado" },
+              { texto: "La navegación funciona en pantalla de celular y de computador.", estado: "Aprobado" }
             ]
           },
           {
-            titulo: "Coherencia visual-diseño y marca - Como  usuario, quiero visualizar una interfaz coherente con la marca, para tener una experiencia armónica, efectiva, bien comunicada.  ",
+            titulo: "Coherencia visual: diseño y marca (BI9123-23) - Como usuario, quiero visualizar una interfaz coherente con la marca, para tener una experiencia armónica, efectiva y bien comunicada.",
             criterios: [
-              { texto: "-Faltaron criterios-", estado: "No aprobado" }
+              { texto: "Faltaron criterios de aceptación.", estado: "No aprobado" }
             ]
           }
         ],
-        feedback: "Historia de coherencia visual poco específica. ",
+        feedback: "La historia de coherencia visual es poco específica.",
         backlog: [
-          "Sprint 7 se focalizó en avisos y navegación de la plataforma, se reorganizará historia de coherencia visual, diseño de marca"
+          "El Sprint 7 se focalizó en avisos y navegación de la plataforma; se reorganizará la historia de coherencia visual, diseño y marca."
         ]
       },
 
       /* ---------------- RETROSPECTIVE ---------------- */
       retro: {
         fecha: "2026-09-28",
-        salioBien: ["Pendientes del Sprint 6 fueron resueltos, Sprint 7 resolvió historias de avisos y navegación"],
-        mejorar: ["Descripción de historia y criterios de aceptación bien definidos, para no generar retrasos."],
-        estados: { contento: [], triste: ["Faltó tiempo para resolver historia de diseño visual"], enojado: ["La buena definición de la historia pendiente habría servido para optimizar el tiempo. "] }
+        salioBien: ["Los pendientes del Sprint 6 fueron resueltos; el Sprint 7 resolvió las historias de avisos y navegación."],
+        mejorar: ["Descripción de historias y criterios de aceptación bien definidos, para no generar retrasos."],
+        estados: {
+          contento: [],
+          triste: ["Faltó tiempo para resolver la historia de diseño visual."],
+          enojado: ["La buena definición de la historia pendiente habría servido para optimizar el tiempo."]
+        }
+      }
+    },
+
+    /* =====================================================================
+       SPRINT 8
+       ===================================================================== */
+    {
+      nombre: "Sprint 8",
+      objetivo: "Que los líderes compartan documentos y consulten la opinión de su comunidad mediante encuestas anónimas.",
+      inicio: "2026-09-29",
+      fin: "2026-10-05",
+
+      /* Si el burndown de este sprint es distinto al general, pégalo aquí. */
+      jira: {
+        burndown: ""
+      },
+
+      /* ---------------- DAILY MEETING ----------------
+         Un bloque por día (sin fechas repetidas). Cada fila es un integrante. */
+      daily: [
+        {
+          fecha: "2026-10-01",
+          filas: [
+            { ayer: "", hoy: "Revisar sprint pendiente, replantear historias.", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-10-02",
+          filas: [
+            { ayer: "Revisar sprint pendiente.", hoy: "Comenzar Sprint 8.", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-10-03",
+          filas: [
+            { ayer: "Comenzar Sprint 8.", hoy: "Revisar criterios de aceptación de todas las historias, continuar Sprint 8, actualizar GitHub.", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-10-04",
+          filas: [
+            { ayer: "Sprint 8: criterios de aceptación y realizar historias.", hoy: "Revisar documentación general: diagramas, informes; actualizar GitHub y dashboard Scrum.", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-10-05",
+          filas: [
+            { ayer: "Documentación y revisión del sprint.", hoy: "Realizar presentación de avance de proyecto.", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        }
+      ],
+
+      /* ---------------- DEFINITION OF DONE (de este sprint) ----------------
+         Marca cumplido: true cuando el criterio ya se cumple.
+         El último ítem de "Evidencia y registro" pasa a true ahora que el
+         Sprint Review incluye las 4 historias. */
+      definitionOfDone: [
+        {
+          criterio: "Funciona según la historia",
+          items: [
+            { texto: "Todos los criterios de aceptación de la historia fueron probados en la app y se cumplen.", cumplido: true },
+            { texto: "Los permisos se validan también en la API.", cumplido: true }
+          ]
+        },
+        {
+          criterio: "Código listo",
+          items: [
+            { texto: "El frontend compila y el backend corre sin errores.", cumplido: true },
+            { texto: "Las migraciones están creadas y aplicadas; requirements.txt está actualizado.", cumplido: true },
+            { texto: "Las pruebas automáticas del backend pasan (python manage.py test).", cumplido: true },
+            { texto: "El código está subido a GitHub con un commit que describe la historia.", cumplido: true }
+          ]
+        },
+        {
+          criterio: "Evidencia y registro",
+          items: [
+            { texto: "Cada criterio tiene evidencia (captura, prueba de API o video de Playwright).", cumplido: false },
+            { texto: "La historia está actualizada en Jira y en el dashboard (Sprint Review).", cumplido: true }
+          ]
+        }
+      ],
+
+      /* ---------------- IMPEDIMENT LOG ----------------
+         Para agregar uno, copia este bloque dentro de impedimentos: [ ... ]
+         {
+           id: 1,
+           impedimento: "",
+           descripcion: "",
+           prioridad: "Media",
+           reportadoPor: "Ana Miño",
+           responsable: "Ana Miño",
+           accion: "",
+           estado: "Abierto",
+           fechaRegistro: "2026-09-29",
+           fechaResolucion: "",
+           impacto: ""
+         },
+      */
+      impedimentos: [],
+
+      /* ---------------- SPRINT REVIEW ---------------- */
+      review: {
+        fecha: "2026-10-05",
+        historias: [
+          {
+            titulo: "Subir documento (BI9123-6) - Como líder de una comunidad, quiero subir un documento a mi comunidad para que sus miembros puedan consultarlo desde la aplicación.",
+            criterios: [
+              { texto: "El líder ve la opción “Subir documento” solo en las comunidades donde es líder.", estado: "Aprobado" },
+              { texto: "Se aceptan archivos PDF, Word o imagen, de hasta 10 MB.", estado: "Aprobado" },
+              { texto: "Al subir se muestra un mensaje de éxito; si el archivo no es válido, se explica por qué.", estado: "Aprobado" },
+              { texto: "Queda registrado quién lo subió, a qué comunidad y cuándo.", estado: "Aprobado" },
+              { texto: "Un colaborador, o un líder de otra comunidad, no puede subir.", estado: "Aprobado" }
+            ]
+          },
+          {
+            titulo: "Consultar documento (BI9123-7) - Como miembro de una comunidad, quiero ver y descargar los documentos de mis comunidades, para mantenerme informado.",
+            criterios: [
+              { texto: "Veo la lista de documentos de mis comunidades, con los más recientes primero.", estado: "Aprobado" },
+              { texto: "Cada documento muestra nombre, comunidad, quién lo subió y fecha.", estado: "Aprobado" },
+              { texto: "No veo documentos de comunidades a las que no pertenezco.", estado: "Aprobado" }
+            ]
+          },
+          {
+            titulo: "Crear encuesta (BI9123-10) - Como líder de una comunidad, quiero crear encuestas en mi comunidad, para conocer la opinión de sus miembros sobre decisiones concretas.",
+            criterios: [
+              { texto: "El líder ve la opción “Crear encuesta” solo en las comunidades donde es líder; si es líder de varias, elige en cuál la crea.", estado: "Aprobado" },
+              { texto: "La encuesta tiene título, de 1 a 5 preguntas de opción única con 2 a 5 alternativas cada una (sin repetir) y una fecha de cierre futura.", estado: "Aprobado" },
+              { texto: "El líder puede editar la encuesta mientras nadie la haya respondido.", estado: "Aprobado" },
+              { texto: "Un colaborador, o un líder de otra comunidad, no puede crear ni editar encuestas (403).", estado: "Aprobado" }
+            ]
+          },
+          {
+            titulo: "Responder encuesta (BI9123-11) - Como miembro de una comunidad, quiero responder las encuestas de mi comunidad, para expresar mi opinión en decisiones concretas.",
+            criterios: [
+              { texto: "Veo las encuestas de mis comunidades, separadas en abiertas y cerradas.", estado: "Aprobado" },
+              { texto: "Respondo una sola vez, contestando todas las preguntas, antes de la fecha de cierre; luego la encuesta queda marcada como “Respondida”.", estado: "Aprobado" },
+              { texto: "Las respuestas son anónimas: nadie puede ver quién respondió qué.", estado: "Aprobado" },
+              { texto: "Un usuario de otra comunidad no puede responder.", estado: "Aprobado" }
+            ]
+          }
+        ],
+        feedback: "Posible mejora: vista de documentos PDF o imágenes, para que no sea necesario descargarlos.",
+        backlog: [
+          "Agregar la opción “Ver” para los PDF y las imágenes directamente en el navegador (nueva historia “Ver documento en navegador”, prioridad Could)."
+        ]
+      },
+
+      /* ---------------- RETROSPECTIVE ---------------- */
+      retro: {
+        fecha: "2026-10-05",
+        salioBien: [
+          "Se completaron las 4 historias del sprint (documentos y encuestas) con todos sus criterios de aceptación aprobados.",
+          "Se aplicó lo aprendido en los sprints anteriores: las historias se replantearon con criterios claros antes de programar, y cada una quedó con pruebas automáticas y evidencias."
+        ],
+        mejorar: [
+          "Registrar cada historia en el Sprint Review del dashboard y en Jira apenas se termina, no al final del sprint.",
+          "Mantener las mismas fechas del sprint en Jira, el dashboard y los documentos."
+        ],
+        estados: { contento: [], triste: [], enojado: [] }
+      }
+    },
+
+    /* =====================================================================
+       SPRINT 9  (completa a medida que avance la semana)
+       ===================================================================== */
+    {
+      nombre: "Sprint 9",
+      objetivo: "Dar a la comunidad acceso a los resultados de sus encuestas y a su historial de actividad, con una identidad visual coherente en toda la aplicación.",
+      inicio: "2026-10-06",
+      fin: "2026-10-10",
+
+      jira: {
+        burndown: ""
+      },
+
+      /* ---------------- DAILY MEETING ---------------- */
+      daily: [],
+
+      /* ---------------- DEFINITION OF DONE (de este sprint) ----------------
+         Misma base que el Sprint 8, todo en false para partir. */
+      definitionOfDone: [
+        {
+          criterio: "Funciona según la historia",
+          items: [
+            { texto: "Todos los criterios de aceptación de la historia fueron probados en la app y se cumplen.", cumplido: false },
+            { texto: "Los permisos se validan también en la API.", cumplido: false }
+          ]
+        },
+        {
+          criterio: "Código listo",
+          items: [
+            { texto: "El frontend compila y el backend corre sin errores.", cumplido: false },
+            { texto: "Las migraciones están creadas y aplicadas; requirements.txt está actualizado.", cumplido: false },
+            { texto: "Las pruebas automáticas del backend pasan (python manage.py test).", cumplido: false },
+            { texto: "El código está subido a GitHub con un commit que describe la historia.", cumplido: false }
+          ]
+        },
+        {
+          criterio: "Evidencia y registro",
+          items: [
+            { texto: "Cada criterio tiene evidencia (captura, prueba de API o video de Playwright).", cumplido: false },
+            { texto: "La historia está actualizada en Jira y en el dashboard (Sprint Review).", cumplido: false }
+          ]
+        }
+      ],
+
+      /* ---------------- IMPEDIMENT LOG ---------------- */
+      impedimentos: [],
+
+      /* ---------------- SPRINT REVIEW ---------------- */
+      review: {
+        fecha: "",
+        historias: [],
+        feedback: "",
+        backlog: []
+      },
+
+      /* ---------------- RETROSPECTIVE ---------------- */
+      retro: {
+        fecha: "",
+        salioBien: [],
+        mejorar: [],
+        estados: { contento: [], triste: [], enojado: [] }
       }
     }
   ]
