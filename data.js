@@ -484,7 +484,34 @@ window.DASHBOARD = {
            impacto: ""
          },
       */
-      impedimentos: [],
+      impedimentos: [
+        {
+          id: 3,
+          impedimento: "Almacenamiento de documentos",
+          descripcion: "Se evaluó subir los documentos a Google Drive, pero su cuota de almacenamiento es limitada y agrega una integración externa; además, el proyecto exige que todo pase por la API REST.",
+          prioridad: "Media",
+          reportadoPor: "Ana Miño",
+          responsable: "Ana Miño",
+          accion: "Guardar los archivos en el servidor (carpeta media/) y entregarlos por /api/documentos/<id>/descargar/, que valida que el usuario sea miembro de la comunidad.",
+          estado: "Cerrado",
+          fechaRegistro: "2026-10-01",
+          fechaResolucion: "2026-10-01",
+          impacto: "Se replanteó la historia Subir documento antes de programarla; sin retraso en el sprint."
+        },
+        {
+          id: 4,
+          impedimento: "Error de token JWT (\"Given token not valid\")",
+          descripcion: "Con el token de acceso vencido, la API respondía 403 en lugar de 401, porque SessionAuthentication estaba primero; el interceptor de la app no renovaba el token y el usuario veía el error.",
+          prioridad: "Alta",
+          reportadoPor: "Ana Miño",
+          responsable: "Ana Miño",
+          accion: "Poner JWTAuthentication primero en DEFAULT_AUTHENTICATION_CLASSES, para que un token vencido devuelva 401 y el interceptor lo renueve.",
+          estado: "Cerrado",
+          fechaRegistro: "2026-10-02",
+          fechaResolucion: "2026-10-02",
+          impacto: "Las pantallas de documentos y encuestas fallaban tras un tiempo con la sesión abierta; se resolvió el mismo día."
+        }
+      ],
 
       /* ---------------- SPRINT REVIEW ---------------- */
       review: {
