@@ -115,15 +115,15 @@ window.DASHBOARD = {
         {
           id: 1,
           impedimento: "Funcionalidad side-menu, hacia página Avisos",
-          descripcion: "El menú lateral no logra navegar hacia /avisos, aunque la ruta funciona directo. Ya se revisó: app.component.html, side-menu.component.html, avisos.page.ts, avisos.page.html, avisos.service.ts y main.ts. Próximo paso: confirmar integración de ion-menu con ion-router-outlet y ajustar navegación desde el menú.",
+          descripcion: "El menú lateral no lograba navegar hacia /avisos, aunque la ruta funcionaba directo. Faltaba declarar RouterLink en los imports de app.component.ts.",
           prioridad: "Alta",
           reportadoPor: "Ana Miño",
           responsable: "Ana Miño",
-          accion: "Confirmar la integración de ion-menu con ion-router-outlet y ajustar la navegación desde el menú (lunes 21 de septiembre).",
-          estado: "Abierto",
+          accion: "Agregar RouterLink (y RouterLinkActive) al arreglo imports de app.component.ts. Se resolvió el 24/09, ya en el Sprint 7.",
+          estado: "Cerrado",
           fechaRegistro: "2026-09-20",
-          fechaResolucion: "",
-          impacto: "Retraso en avance de Sprint 6: no se puede validar el flujo registro, login, home, avisos hasta resolverlo."
+          fechaResolucion: "2026-09-24",
+          impacto: "Retrasó el avance del Sprint 6: no se pudo validar el flujo registro, login, home, avisos hasta resolverlo."
         }
       ],
 
@@ -270,19 +270,6 @@ window.DASHBOARD = {
       /* ---------------- IMPEDIMENT LOG ----------------
          estado: "Abierto" o "Cerrado". */
       impedimentos: [
-        {
-          id: 1,
-          impedimento: "Funcionalidad side-menu, hacia página Avisos",
-          descripcion: "El menú lateral no lograba navegar hacia /avisos, aunque la ruta funcionaba directo. Faltaba declarar RouterLink en los imports de app.component.ts.",
-          prioridad: "Alta",
-          reportadoPor: "Ana Miño",
-          responsable: "Ana Miño",
-          accion: "Agregar RouterLink (y RouterLinkActive) al arreglo imports de app.component.ts.",
-          estado: "Cerrado",
-          fechaRegistro: "2026-09-20",
-          fechaResolucion: "2026-09-24",
-          impacto: "No se podía validar el flujo registro, login, home, avisos hasta resolverlo."
-        },
         {
           id: 2,
           impedimento: "Faltó concretar historia: Coherencia visual, diseño y marca",
