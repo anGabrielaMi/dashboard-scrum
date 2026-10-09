@@ -26,8 +26,8 @@ window.DASHBOARD = {
   },
 
   /* Sprint que se muestra al abrir la página. Si lo omites, se muestra el último.
-     Cámbialo a "Sprint 9" cuando comience el Sprint 9. */
-  sprintActual: "Sprint 8",
+     Cada sprint dura una semana, de martes a lunes. */
+  sprintActual: "Sprint 9",
 
   /* -------------------------------------------------------------------
      SPRINTS
@@ -38,8 +38,8 @@ window.DASHBOARD = {
     {
       nombre: "Sprint 6",
       objetivo: "Permitir que los usuarios se registren, inicien sesión y vean avisos en la aplicación.",
-      inicio: "2026-09-14",
-      fin: "2026-09-20",
+      inicio: "2026-09-15",
+      fin: "2026-09-21",
 
       /* Opcional: enlaces propios de este sprint (por ejemplo, su burndown). */
       jira: {
@@ -69,6 +69,13 @@ window.DASHBOARD = {
           filas: [
             { ayer: "Crear y validar el formulario de registro, actualizar modelo E-R, crear dashboard para ordenar información semana 6.", hoy: "Continuar con entrega de semana 6.", impedimentos: "", presentador: "Ana Miño" },
             { ayer: "Revisar retroalimentación S5.", hoy: "Mejorar historias de usuario con criterios de aceptación y estimación de esfuerzo; redistribuir historias para el sprint siguiente.", impedimentos: "", presentador: "Ana Miño" }
+          ]
+        },
+        {
+          fecha: "2026-09-21",
+          filas: [
+            { ayer: "Documentos entrega semana 6.", hoy: "Añadir evidencias a historias con criterios aprobados.", impedimentos: "", presentador: "Ana Miño" },
+            { ayer: "", hoy: "Planificar tiempos para pendientes del Sprint 6: criterios de aceptación faltantes y revisar impedimento asociado al side-menu.", impedimentos: "", presentador: "Ana Miño" }
           ]
         }
       ],
@@ -190,7 +197,7 @@ window.DASHBOARD = {
     {
       nombre: "Sprint 7",
       objetivo: "Que los líderes publiquen y editen avisos en su comunidad, y que cada miembro consulte solo los avisos que le corresponden, navegando con facilidad por la aplicación.",
-      inicio: "2026-09-21",
+      inicio: "2026-09-22",
       fin: "2026-09-28",
 
       /* Si el burndown de este sprint es distinto al general, pégalo aquí.
@@ -201,13 +208,6 @@ window.DASHBOARD = {
 
       /* ---------------- DAILY MEETING ---------------- */
       daily: [
-        {
-          fecha: "2026-09-21",
-          filas: [
-            { ayer: "Documentos entrega semana 6.", hoy: "Añadir evidencias a historias con criterios aprobados.", impedimentos: "", presentador: "Ana Miño" },
-            { ayer: "", hoy: "Planificar tiempos para pendientes del Sprint 6: criterios de aceptación faltantes y revisar impedimento asociado al side-menu.", impedimentos: "", presentador: "Ana Miño" }
-          ]
-        },
         {
           fecha: "2026-09-23",
           filas: [
@@ -462,7 +462,7 @@ window.DASHBOARD = {
         {
           criterio: "Evidencia y registro",
           items: [
-            { texto: "Cada criterio tiene evidencia (captura, prueba de API o video de Playwright).", cumplido: false },
+            { texto: "Cada criterio tiene evidencia (captura, prueba de API o video de Playwright).", cumplido: true },
             { texto: "La historia está actualizada en Jira y en el dashboard (Sprint Review).", cumplido: true }
           ]
         }
@@ -555,14 +555,21 @@ window.DASHBOARD = {
       nombre: "Sprint 9",
       objetivo: "Dar a la comunidad acceso a los resultados de sus encuestas y a su historial de actividad, con una identidad visual coherente en toda la aplicación.",
       inicio: "2026-10-06",
-      fin: "2026-10-10",
+      fin: "2026-10-12",
 
       jira: {
         burndown: ""
       },
 
       /* ---------------- DAILY MEETING ---------------- */
-      daily: [],
+      daily: [
+        {
+          fecha: "2026-10-08",
+          filas: [
+            { ayer: "", hoy: "Corregir el informe de la Semana 8: unificar las fechas de los sprints (una semana cada uno, de martes a lunes) en Product Backlog, Sprint Planning, Daily, Sprint Review y burndown; actualizar fechas en Jira y en el dashboard.", impedimentos: "Ninguno.", presentador: "Ana Miño" }
+          ]
+        }
+      ],
 
       /* ---------------- DEFINITION OF DONE (de este sprint) ----------------
          Misma base que el Sprint 8, todo en false para partir. */
