@@ -462,7 +462,7 @@ window.DASHBOARD = {
         {
           criterio: "Evidencia y registro",
           items: [
-            { texto: "Cada criterio tiene evidencia (captura, prueba de API o video de Playwright).", cumplido: true },
+            { texto: "Cada criterio tiene evidencia (captura, prueba de API o video de Playwright).", cumplido: false },
             { texto: "La historia está actualizada en Jira y en el dashboard (Sprint Review).", cumplido: true }
           ]
         }
@@ -538,7 +538,7 @@ window.DASHBOARD = {
         fecha: "2026-10-05",
         salioBien: [
           "Se completaron las 4 historias del sprint (documentos y encuestas) con todos sus criterios de aceptación aprobados.",
-          "Se aplicó lo aprendido en los sprints anteriores: las historias se replantearon con criterios claros antes de programar, y cada una quedó con pruebas automáticas y evidencias."
+          "Se aplicó lo aprendido en los sprints anteriores: las historias se replantearon con criterios claros antes de programar."
         ],
         mejorar: [
           "Registrar cada historia en el Sprint Review del dashboard y en Jira apenas se termina, no al final del sprint.",
